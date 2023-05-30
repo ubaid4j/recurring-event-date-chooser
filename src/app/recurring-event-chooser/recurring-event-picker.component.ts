@@ -4,8 +4,12 @@ import {NgbCalendar, NgbDate, NgbDateParserFormatter} from '@ng-bootstrap/ng-boo
 import {Frequency, Options, RRule} from 'rrule';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {NgbTime} from '@ng-bootstrap/ng-bootstrap/timepicker/ngb-time';
 
-export function toNativeDate(ngbDate: NgbDate): Date {
+export function toNativeDate(ngbDate: NgbDate, ngbTime?: NgbTime): Date {
+  if (ngbTime) {
+    return new Date(Date.UTC(ngbDate.year, ngbDate.month - 1, ngbDate.day, ngbTime.hour, ngbTime.minute, ngbTime.second));
+  }
   return new Date(Date.UTC(ngbDate.year, ngbDate.month - 1, ngbDate.day));
 }
 
